@@ -1,0 +1,39 @@
+using QuizSystem.Api.QuestionSystem.Application.Dtos;
+using QuizSystem.Api.QuestionSystem.Application.Abstractions.Persistence;
+
+namespace QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestion;
+
+public sealed class GetQuestionHandler
+{
+    private readonly IQuestionRepository _repository;
+
+    public GetQuestionHandler(IQuestionRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<QuestionDto?> Handle(GetQuestionQuery query)
+    {
+        var question = await _repository.GetWithOptionsAsync(query.QuestionId);
+        if (question is null) return null;
+
+        var questionText = new Domain.ValueObjects.QuestionText(question.Text.Value);
+
+        return new QuestionDto
+        {
+            Id = question.Id,
+            Text = questionText,
+            FolderId = question.FolderId,
+            Type = question.Type,
+            ImageUrl = question.ImageUrl,
+            Options = question.Options
+                .Select(o => new QuestionOptionDto
+                {
+                    Id = o.Id,
+                    Text = o.Text,
+                    ImageUrl = o.ImageUrl
+                })
+                .ToList()
+        };
+    }
+}
