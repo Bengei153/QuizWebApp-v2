@@ -60,7 +60,7 @@ public class SecuredFolderController : ControllerBase
     /// Returns: 200 OK with folder details, 404 if not found, 401 if not authenticated
     /// </remarks>
     [HttpGet("{folderId:guid}")]
-    [Authorize(Roles = "Admin, Creator, Viewer")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin, Student")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -96,7 +96,7 @@ public class SecuredFolderController : ControllerBase
     /// - Prevents authorization bypass
     /// </remarks>
     [HttpPost]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -146,7 +146,7 @@ public class SecuredFolderController : ControllerBase
     /// 5. If valid: Update folder and return 200 OK
     /// </remarks>
     [HttpPut("{folderId:guid}")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -212,7 +212,7 @@ public class SecuredFolderController : ControllerBase
     /// - Admins can still access with separate endpoint if needed
     /// </remarks>
     [HttpDelete("{folderId:guid}")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

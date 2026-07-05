@@ -28,7 +28,7 @@ namespace QuizSystem.Api.QuestionSystem.Application.Features.QuestionGroup
                 throw new InvalidOperationException("No Group Id Found");
 
             // Allow Admin to bypass org restriction
-            if (!string.Equals(command.User.Role, "Admin", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(command.User.Role, "SuperAdmin", StringComparison.OrdinalIgnoreCase))
             {
                 if (string.IsNullOrWhiteSpace(questionGroup.OrganisationId) ||
                     !string.Equals(questionGroup.OrganisationId, command.User.OrganisationId, StringComparison.OrdinalIgnoreCase))

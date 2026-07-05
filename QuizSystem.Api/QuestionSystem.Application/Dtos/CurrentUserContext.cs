@@ -25,17 +25,17 @@ public class CurrentUserContext
     /// <summary>
     /// Indicates if user is an Admin.
     /// </summary>
-    public bool IsAdmin => Role?.Equals("Admin", StringComparison.OrdinalIgnoreCase) ?? false;
+    public bool IsAdmin => Role?.Equals("SuperAdmin", StringComparison.OrdinalIgnoreCase) ?? false;
 
     /// <summary>
     /// Indicates if user is a Creator.
     /// </summary>
-    public bool IsCreator => Role?.Equals("Creator", StringComparison.OrdinalIgnoreCase) ?? false;
+    public bool IsCreator => Role?.Equals("OrgAdmin", StringComparison.OrdinalIgnoreCase) ?? false;
 
     /// <summary>
     /// Indicates if user is a Viewer.
     /// </summary>
-    public bool IsViewer => Role?.Equals("Viewer", StringComparison.OrdinalIgnoreCase) ?? false;
+    public bool IsViewer => Role?.Equals("Student", StringComparison.OrdinalIgnoreCase) ?? false;
 
     /// <summary>
     /// Check if user has a specific role.

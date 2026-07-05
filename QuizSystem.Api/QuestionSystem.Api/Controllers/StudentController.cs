@@ -8,7 +8,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers;
 
 [Route("api/student")]
 [ApiController]
-[Authorize(Roles = "Viewer")]
+[Authorize(Roles = "Student")]
 public class StudentController : ControllerBase
 {
     private readonly IMediator _mediator;

@@ -36,7 +36,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
 
         // GET api/<QuestionGroupController>/5
         [HttpGet("{id:guid}")]
-        [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "OrgAdmin")]
         public async Task<IActionResult> Get(Guid id)
         {
             try
@@ -61,7 +61,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
 
         // POST api/<QuestionGroupController>
         [HttpPost]
-        [Authorize(Roles = "Creator, Admin")]
+        [Authorize(Roles = "OrgAdmin, SuperAdmin")]
         public async Task<IActionResult> Create([FromBody] CreateQuestionGroupCommand command)
         {
             try
@@ -96,7 +96,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
 
         // PUT api/<QuestionGroupController>/5
         [HttpPut("{id:guid}")]
-        [Authorize(Roles = "CreatorOrAdmin")]
+        [Authorize(Roles = "OrgAdmin, SuperAdmin")]
         public async Task<IActionResult> Put(Guid id, [FromBody] string name)
         {
             try
@@ -133,7 +133,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
 
         // DELETE api/<QuestionGroupController>/5
         [HttpDelete("{id:guid}")]
-        [Authorize(Roles = "CreatorOrAdmin")]
+        [Authorize(Roles = "OrgAdmin, SuperAdmin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

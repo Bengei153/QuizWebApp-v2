@@ -81,7 +81,7 @@ public class CurrentUserService : ICurrentUserService
     /// <summary>
     /// Checks if the current user is an admin.
     /// </summary>
-    public bool IsAdmin => HasRole("Admin");
+    public bool IsAdmin => HasRole("SuperAdmin");
 
     /// <summary>
     /// Indicates if a user is authenticated.
@@ -100,7 +100,7 @@ public class CurrentUserService : ICurrentUserService
             // try common claim names used by various identity providers
             var claim = ctx.User.FindFirst("organization_id")
                     ?? ctx.User.FindFirst("organisation_id")
-                    ?? ctx.User.FindFirst("org")
+                    ?? ctx.User.FindFirst("organizationId")
                     ?? ctx.User.FindFirst("tenant")
                     ?? ctx.User.FindFirst("tenant_id");
 

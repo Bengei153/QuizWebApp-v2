@@ -86,15 +86,15 @@ builder.Services.AddAuthorization(options =>
 
     // Policy: User must be Admin
     options.AddPolicy("AdminOnly", policy =>
-        policy.RequireRole("Admin"));
+        policy.RequireRole("Admin", "SuperAdmin"));
 
     // Policy: User must be Creator or Admin
     options.AddPolicy("CreatorOrAdmin", policy =>
-        policy.RequireRole("Creator", "Admin"));
+        policy.RequireRole("Creator", "Admin", "OrgAdmin", "SuperAdmin"));
 
     // Policy: User can be any role
     options.AddPolicy("AnyRole", policy =>
-        policy.RequireRole("Admin", "Creator", "Viewer"));
+        policy.RequireRole("Admin", "Creator", "Viewer", "SuperAdmin", "OrgAdmin", "Student"));
 });
 
 // Swagger configuration with Bearer token support

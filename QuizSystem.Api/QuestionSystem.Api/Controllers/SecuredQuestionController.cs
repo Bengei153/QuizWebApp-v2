@@ -55,7 +55,7 @@ public class SecuredQuestionController : ControllerBase
     /// Requires a groupId because folders are scoped to a question group.
     /// </summary>
     [HttpPost]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -79,7 +79,7 @@ public class SecuredQuestionController : ControllerBase
     /// Get a question. All authenticated users (any role) can read.
     /// </summary>
     [HttpGet("{questionId:guid}")]
-    [Authorize(Roles = "Admin, Creator, Viewer")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin, Student")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetQuestion(Guid folderId, Guid questionId)
@@ -96,7 +96,7 @@ public class SecuredQuestionController : ControllerBase
     /// Update a question. User must own it OR be Admin.
     /// </summary>
     [HttpPut("{questionId:guid}")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -118,7 +118,7 @@ public class SecuredQuestionController : ControllerBase
     /// Delete a question (soft delete). User must own it OR be Admin.
     /// </summary>
     [HttpDelete("{questionId:guid}")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -133,7 +133,7 @@ public class SecuredQuestionController : ControllerBase
     /// Max 5MB; jpeg/png/webp/gif only (enforced in ImageUploadRequest.Validate()).
     /// </summary>
     [HttpPost("{questionId:guid}/image")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin")]
     [RequestSizeLimit(6 * 1024 * 1024)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -165,7 +165,7 @@ public class SecuredQuestionController : ControllerBase
     /// Remove this question's image. User must own it OR be Admin.
     /// </summary>
     [HttpDelete("{questionId:guid}/image")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -181,7 +181,7 @@ public class SecuredQuestionController : ControllerBase
     /// folders are scoped to a question group, same as manual creation.
     /// </summary>
     [HttpPost("import")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ImportQuestions(

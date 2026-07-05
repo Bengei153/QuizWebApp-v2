@@ -7,7 +7,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers;
 
 [Route("api/admin")]
 [ApiController]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "SuperAdmin")]
 public class AdminController : ControllerBase
 {
     private readonly IMediator _mediator;

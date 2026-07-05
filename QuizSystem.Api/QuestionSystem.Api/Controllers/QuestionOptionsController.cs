@@ -37,7 +37,7 @@ public sealed class QuestionOptionsController : ControllerBase
     /// Add an option to a question. User must own the question OR be Admin.
     /// </summary>
     [HttpPost]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -57,7 +57,7 @@ public sealed class QuestionOptionsController : ControllerBase
     /// Remove an option (soft delete). User must own the question OR be Admin.
     /// </summary>
     [HttpDelete("{optionId:guid}")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -73,7 +73,7 @@ public sealed class QuestionOptionsController : ControllerBase
     /// the same question — returns 400 if it doesn't.
     /// </summary>
     [HttpPost("{optionId:guid}/image")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin")]
     [RequestSizeLimit(6 * 1024 * 1024)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -106,7 +106,7 @@ public sealed class QuestionOptionsController : ControllerBase
     /// Remove an option's image.
     /// </summary>
     [HttpDelete("{optionId:guid}/image")]
-    [Authorize(Roles = "Admin, Creator")]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

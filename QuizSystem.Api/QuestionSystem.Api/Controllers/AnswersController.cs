@@ -15,7 +15,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
             _handler = handler;
         }
 
-        [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "OrgAdmin")]
         [HttpPost]
         public async Task<IActionResult> Submit([FromBody] SubmitAnswerCommand command)
         {
