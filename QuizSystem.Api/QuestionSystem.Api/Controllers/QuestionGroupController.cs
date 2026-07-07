@@ -19,19 +19,49 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
         private readonly GetQuestionGroupHandler _getHandler;
         private readonly UpdateQuestionGroupHandler _updateHandler;
         private readonly DeleteQuestionGroupHandler _deleteHandler;
+        private readonly GetMyQuestionGroupsHandler _getMyGroupsHandler;
         private readonly ICurrentUserService _currentUserService;
         public QuestionGroupController(
             GetQuestionGroupHandler getQuestionHandler,
             CreateQuestionGroupHandler handler,
             UpdateQuestionGroupHandler updateHandler,
             DeleteQuestionGroupHandler deleteHandler,
+            GetMyQuestionGroupsHandler getMyGroupsHandler,
             ICurrentUserService currentUserService)
         {
             _getHandler = getQuestionHandler;
+            _getMyGroupsHandler = getMyGroupsHandler;
             _CreateHandler = handler;
             _updateHandler = updateHandler;
             _deleteHandler = deleteHandler;
             _currentUserService = currentUserService;
+        }
+
+        // GET api/<QuestionGroupController>
+        [HttpGet]
+        [Authorize(Roles = "OrgAdmin")]
+        public async Task<IActionResult> GetMine()
+        {
+            try
+            {
+                var orgId = _currentUserService.OrganisationId;
+                if (string.IsNullOrWhiteSpace(orgId))
+                    return Unauthorized(new { message = "User identification failed" });
+
+                var userContext = new CurrentUserContext
+                {
+                    UserId = _currentUserService.UserId,
+                    Role = _currentUserService.UserRole,
+                    OrganisationId = orgId
+                };
+                var result = await _getMyGroupsHandler.Handle(new GetMyQuestionGroupsCommand(userContext));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An unexpected error occurred." });
+            }
         }
 
         // GET api/<QuestionGroupController>/5
