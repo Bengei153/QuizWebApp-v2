@@ -44,6 +44,7 @@ public static class DependencyInjection
         services.AddScoped<Features.Questions.Options.UploadOptionImageHandler>();
         services.AddScoped<Features.Questions.Options.DeleteOptionImageHandler>();
         services.AddScoped<GetQuestionGroupHandler>();
+        services.AddScoped<GetMyQuestionGroupsHandler>();
         services.AddScoped<UpdateQuestionGroupHandler>();
         services.AddScoped<SubmitAnswerHandler>();
         services.AddScoped<DeleteQuestionGroupHandler>();
