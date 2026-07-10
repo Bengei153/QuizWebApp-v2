@@ -10,4 +10,5 @@ public interface IQuestionRepository
     Task AddAsync(Question question);
     Task UpdateAsync(Question question);
     Task<int> CountByGroupIdAsync(Guid groupId);
+    Task<List<Question>> GetByIdsAsync(List<Guid> ids);
 }

@@ -8,7 +8,8 @@ public sealed class FolderDto
 {
     public Guid Id { get; init; }
     public string Name { get; init; } = null!;
-    
+    public Guid GroupId { get; init; }
+
     /// <summary>
     /// User ID who created this folder.
     /// </summary>

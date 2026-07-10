@@ -8,4 +8,5 @@ public class StudentStatsDto
     public int TotalAnswers { get; set; }
     public double PassRate { get; set; }
     public int QuizzesInProgress { get; set; }
+    public List<SuggestedTopicDto> SuggestedTopics { get; set; } = new();
 }

@@ -61,6 +61,11 @@ public sealed class FolderRepository : IFolderRepository
         // persisted because SaveChangesAsync only ran before this loop.
         await _context.SaveChangesAsync();
     }
+
+    public async Task<List<Folder>> GetByIdsAsync(List<Guid> ids)
+    {
+        return await _context.Folders.Where(f => ids.Contains(f.Id)).ToListAsync();
+    }
 }
 
 

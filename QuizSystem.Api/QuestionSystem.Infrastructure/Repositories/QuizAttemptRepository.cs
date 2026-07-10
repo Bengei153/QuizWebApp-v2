@@ -50,4 +50,13 @@ public class QuizAttemptRepository : IQuizAttemptRepository
         _context.QuizAttempts.Update(attempt);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<List<QuizAttempt>> GetByUserWithAnswersAsync(Guid userId)
+    {
+        return await _context.QuizAttempts
+                                    .Include(a => a.Answers)
+                                    .Where(a => a.UserId == userId)
+                                    .OrderByDescending(a => a.StartedAt)
+                                    .ToListAsync();
+    }
 }

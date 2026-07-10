@@ -38,4 +38,9 @@ public sealed class QuestionRepository : IQuestionRepository
     {
         return await _context.Questions.CountAsync(q => q.FolderId == groupId);
     }
+
+    public async Task<List<Question>> GetByIdsAsync(List<Guid> ids)
+    {
+        return await _context.Questions.Where(q => ids.Contains(q.Id)).ToListAsync();
+    }
 }
