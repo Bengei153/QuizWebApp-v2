@@ -36,6 +36,7 @@ public class SecuredFolderController : ControllerBase
     private readonly DeleteFolderHandlerWithAuth _deleteHandler;
     private readonly GetFolderHandler _getFolder;
     private readonly CreateFolderHandler _createFolder;
+    private readonly GetAllFolderHandler _getAllFolders;
     private readonly ICurrentUserService _currentUserService;
 
     public SecuredFolderController(
@@ -43,12 +44,14 @@ public class SecuredFolderController : ControllerBase
         DeleteFolderHandlerWithAuth deleteHandler,
         GetFolderHandler getFolder,
         CreateFolderHandler createFolder,
+        GetAllFolderHandler getAllFolders,
         ICurrentUserService currentUserService)
     {
         _updateHandler = updateHandler;
         _deleteHandler = deleteHandler;
         _getFolder = getFolder;
         _createFolder = createFolder;
+        _getAllFolders = getAllFolders;
         _currentUserService = currentUserService;
     }
 
@@ -76,6 +79,25 @@ public class SecuredFolderController : ControllerBase
         {
             Console.WriteLine(ex.Message);
             return NotFound(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An unexpected error occurred." });
+        }
+    }
+
+    [HttpGet]
+    [Authorize(Roles = "Admin, Creator, Viewer")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<FolderDto>>> GetAllFolders(Guid groupId)
+    {
+        try
+        {
+            var command = new GetAllFoldersCommand(groupId);
+            var result = await _getAllFolders.Handle(command);
+            return Ok(result);
         }
         catch (Exception ex)
         {

@@ -26,7 +26,8 @@ public class GetAllFolderHandler
         return folder.Select(f => new FolderDto
         {
             Id = f.Id,
-            Name = f.Name
+            Name = f.Name,
+            GroupId = f.QuestionGroupId
         }).ToList();
     }
 }
