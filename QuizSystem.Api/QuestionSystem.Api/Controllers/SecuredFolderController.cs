@@ -88,7 +88,7 @@ public class SecuredFolderController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin, Creator, Viewer")]
+    [Authorize(Roles = "SuperAdmin, OrgAdmin, Student")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<List<FolderDto>>> GetAllFolders(Guid groupId)
