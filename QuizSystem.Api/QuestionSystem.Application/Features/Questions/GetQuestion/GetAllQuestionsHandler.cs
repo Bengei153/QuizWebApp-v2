@@ -1,9 +1,9 @@
 ﻿using QuizSystem.Api.QuestionSystem.Application.Abstractions.Persistence;
 using QuizSystem.Api.QuestionSystem.Application.Dtos;
-using QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestions.GetAllQuestions;
+using QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestions;
 using System;
 
-namespace QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestion.GetAllQuestionsHandler;
+namespace QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestion;
 
 public sealed class GetAllQuestionsHandler
 {

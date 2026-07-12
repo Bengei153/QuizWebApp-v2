@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestions.GetAllQuestions;
+namespace QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestions;
 
 public sealed class GetAllQuestionsCommand
 {
