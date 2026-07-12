@@ -43,4 +43,12 @@ public sealed class QuestionRepository : IQuestionRepository
     {
         return await _context.Questions.Where(q => ids.Contains(q.Id)).ToListAsync();
     }
+
+    public async Task<List<Question>> GetAllByFolderIdAsync(Guid folderId)
+    {
+        return await _context.Questions
+                                    .Where(q => q.FolderId == folderId)
+                                    .Include(q => q.Options)
+                                    .ToListAsync();
+    }
 }

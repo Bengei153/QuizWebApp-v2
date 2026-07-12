@@ -6,6 +6,8 @@ using QuizSystem.Api.QuestionSystem.Application.Features.Images;
 using QuizSystem.Api.QuestionSystem.Application.Features.Questions.CreateQuestion;
 using QuizSystem.Api.QuestionSystem.Application.Features.Questions.DeleteQuestion;
 using QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestion;
+using QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestion.GetAllQuestionsHandler;
+using QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestions.GetAllQuestions;
 using QuizSystem.Api.QuestionSystem.Application.Features.Questions.Image;
 using QuizSystem.Api.QuestionSystem.Application.Features.Questions.Import;
 using QuizSystem.Api.QuestionSystem.Application.Features.Questions.UpdateQuestion;
@@ -27,6 +29,7 @@ public class SecuredQuestionController : ControllerBase
     private readonly ICurrentUserService _currentUserService;
     private readonly CreateQuestionHandler _createHandler;
     private readonly GetQuestionHandler _getHandler;
+    private readonly GetAllQuestionsHandler _getAllQuestionsHandler;
     private readonly UpdateQuestionHandler _updateHandler;
     private readonly DeleteQuestionHandler _deleteHandler;
     private readonly UploadQuestionImageHandler _uploadImageHandler;
@@ -36,6 +39,7 @@ public class SecuredQuestionController : ControllerBase
         ICurrentUserService currentUserService,
         CreateQuestionHandler createHandler,
         GetQuestionHandler getHandler,
+        GetAllQuestionsHandler getAllQuestionsHandler,
         UpdateQuestionHandler updateHandler,
         DeleteQuestionHandler deleteHandler,
         UploadQuestionImageHandler uploadImageHandler,
@@ -44,6 +48,7 @@ public class SecuredQuestionController : ControllerBase
         _currentUserService = currentUserService;
         _createHandler = createHandler;
         _getHandler = getHandler;
+        _getAllQuestionsHandler = getAllQuestionsHandler;
         _updateHandler = updateHandler;
         _deleteHandler = deleteHandler;
         _uploadImageHandler = uploadImageHandler;
@@ -89,6 +94,16 @@ public class SecuredQuestionController : ControllerBase
         if (result is null || result.FolderId != folderId)
             return NotFound(new { message = "Question not found in this folder" });
 
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Authorize(Roles = "OrgAdmin, SuperAdmin, Student")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetAllQuestions(Guid folderId)
+    {
+        var result = await _getAllQuestionsHandler.Handle(new GetAllQuestionsCommand(folderId));
         return Ok(result);
     }
 

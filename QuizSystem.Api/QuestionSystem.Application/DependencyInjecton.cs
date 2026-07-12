@@ -10,6 +10,7 @@ using QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestion;
 using QuizSystem.Api.QuestionSystem.Application.Features.Questions.UpdateQuestion;
 using QuizSystem.Api.QuestionSystem.Application.Features.Quiz;
 using QuizSystem.Api.QuestionSystem.Application.Security;
+using QuizSystem.Api.QuestionSystem.Application.Features.Questions.GetQuestion;
 
 namespace QuizSystem.Api.QuestionSystem.Application;
 
@@ -43,6 +44,7 @@ public static class DependencyInjection
         services.AddScoped<Features.Questions.Image.DeleteQuestionImageHandler>();
         services.AddScoped<Features.Questions.Options.UploadOptionImageHandler>();
         services.AddScoped<Features.Questions.Options.DeleteOptionImageHandler>();
+        services.AddScoped<GetAllQuestionsHandler>();
         services.AddScoped<GetQuestionGroupHandler>();
         services.AddScoped<GetMyQuestionGroupsHandler>();
         services.AddScoped<UpdateQuestionGroupHandler>();
@@ -63,6 +65,7 @@ public static class DependencyInjection
 
         //Antropic import questions
         services.AddScoped<Features.Questions.Import.ImportQuestionsHandler>();
+
 
         return services;
     }

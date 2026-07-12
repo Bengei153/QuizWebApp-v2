@@ -11,7 +11,6 @@
     <Folder Include="QuestionSystem.Api\Middleware\" />
     <Folder Include="QuestionSystem.Application\Features\Questions\AddOption\" />
     <Folder Include="QuestionSystem.Application\Features\Questions\CreateQuestion\" />
-    <Folder Include="QuestionSystem.Application\Features\Questions\GetQuestion\" />
     <Folder Include="QuestionSystem.Application\Features\Questions\UpdateQuestion\" />
     <Folder Include="QuestionSystem.Application\Features\Quiz\" />
     <Folder Include="QuestionSystem.Domain\Common\" />

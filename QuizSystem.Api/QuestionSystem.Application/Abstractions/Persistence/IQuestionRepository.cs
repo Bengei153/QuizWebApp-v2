@@ -11,4 +11,5 @@ public interface IQuestionRepository
     Task UpdateAsync(Question question);
     Task<int> CountByGroupIdAsync(Guid groupId);
     Task<List<Question>> GetByIdsAsync(List<Guid> ids);
+    Task<List<Question>> GetAllByFolderIdAsync(Guid folderId);
 }
