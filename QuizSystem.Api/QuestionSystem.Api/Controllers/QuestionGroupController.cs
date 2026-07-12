@@ -133,6 +133,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
             {
                 var userId = _currentUserService.UserId;
                 var userRole = _currentUserService.UserRole;
+                var orgId = _currentUserService.OrganisationId;
 
                 if (string.IsNullOrWhiteSpace(userId))
                     throw new InvalidOperationException();
@@ -140,7 +141,8 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
                 var userContext = new CurrentUserContext
                 {
                     UserId = userId,
-                    Role = userRole
+                    Role = userRole,
+                    OrganisationId = orgId
                 };
 
                 var command = new UpdateQuestionGroupCommand(id, name, userContext);
@@ -152,7 +154,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
             catch (ForbiddenAccessException ex)
             {
                 Console.WriteLine(ex.Message);
-                return Forbid(ex.Message);
+                return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -170,6 +172,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
             {
                 var userId = _currentUserService.UserId;
                 var userRole = _currentUserService.UserRole;
+                var orgId = _currentUserService.OrganisationId;
 
                 if (string.IsNullOrWhiteSpace(userId))
                     throw new InvalidOperationException();
@@ -177,7 +180,8 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
                 var userContext = new CurrentUserContext
                 {
                     UserId = userId,
-                    Role = userRole
+                    Role = userRole,
+                    OrganisationId = orgId
                 };
 
                 var command = new DeleteQuestionGroupCommand(id, userContext);
@@ -189,7 +193,7 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
             catch (ForbiddenAccessException ex)
             {
                 Console.WriteLine(ex.Message);
-                return Forbid(ex.Message);
+                return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
             }
             catch (Exception ex)
             {
