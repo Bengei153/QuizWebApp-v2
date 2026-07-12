@@ -72,8 +72,6 @@ public class SecuredQuestionController : ControllerBase
             return Unauthorized(new { message = "User identification failed" });
 
         var command = new CreateQuestionCommand(request.Text, request.Type, folderId, request.GroupId);
-        await _createHandler.Handle(command);
-
         var questionId = await _createHandler.Handle(command);
 
         return StatusCode(StatusCodes.Status201Created, new { id = questionId, message = "Question created successfully" });

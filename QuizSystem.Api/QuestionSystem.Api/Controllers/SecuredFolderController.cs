@@ -184,6 +184,7 @@ public class SecuredFolderController : ControllerBase
             // Extract authenticated user from JWT claims
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
+            var orgId = _currentUserService.OrganisationId;
 
             if (string.IsNullOrWhiteSpace(userId))
                 return Unauthorized(new { message = "User identification failed" });
@@ -192,7 +193,8 @@ public class SecuredFolderController : ControllerBase
             var userContext = new CurrentUserContext
             {
                 UserId = userId,
-                Role = userRole
+                Role = userRole,
+                OrganisationId = orgId
             };
 
             // Execute handler with authorization
@@ -205,6 +207,11 @@ public class SecuredFolderController : ControllerBase
         {
             Console.WriteLine(ex.Message);
             return BadRequest(new { message = ex.Message });
+        }
+        catch (ForbiddenAccessException ex)
+        {
+            Console.WriteLine(ex.Message);
+            return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
         }
         catch (Exception ex)
         {
@@ -246,6 +253,7 @@ public class SecuredFolderController : ControllerBase
             // Extract authenticated user from JWT claims
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
+            var orgId = _currentUserService.OrganisationId;
 
             if (string.IsNullOrWhiteSpace(userId))
                 return Unauthorized(new { message = "User identification failed" });
@@ -254,7 +262,8 @@ public class SecuredFolderController : ControllerBase
             var userContext = new CurrentUserContext
             {
                 UserId = userId,
-                Role = userRole
+                Role = userRole,
+                OrganisationId = orgId
             };
 
             // Execute handler with authorization
@@ -267,6 +276,11 @@ public class SecuredFolderController : ControllerBase
         {
             Console.WriteLine(ex.Message);
             return NotFound(new { message = ex.Message });
+        }
+        catch (ForbiddenAccessException ex)
+        {
+            Console.WriteLine(ex.Message);
+            return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
         }
         catch (Exception ex)
         {
