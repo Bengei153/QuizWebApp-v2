@@ -17,7 +17,7 @@ public sealed class GetQuestionHandler
         var question = await _repository.GetWithOptionsAsync(query.QuestionId);
         if (question is null) return null;
 
-        var questionText = new Domain.ValueObjects.QuestionText(question.Text.Value);
+        var questionText = question.Text.Value;
 
         return new QuestionDto
         {

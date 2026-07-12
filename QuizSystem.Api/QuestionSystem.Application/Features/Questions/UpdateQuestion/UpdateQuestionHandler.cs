@@ -47,7 +47,7 @@ public class UpdateQuestionHandler
         return new QuestionDto
         {
             Id = question.Id,
-            Text = commandText,
+            Text = commandText.Value,
             Type = question.Type,
         };
     }

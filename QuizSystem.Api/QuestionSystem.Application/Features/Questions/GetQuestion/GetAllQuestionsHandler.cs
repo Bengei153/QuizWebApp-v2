@@ -21,7 +21,7 @@ public sealed class GetAllQuestionsHandler
         return questions.Select(q => new QuestionDto
         {
             Id = q.Id,
-            Text = q.Text,
+            Text = q.Text.Value,
             FolderId = q.FolderId,
             Type = q.Type,
             ImageUrl = q.ImageUrl,

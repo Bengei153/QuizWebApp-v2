@@ -64,7 +64,7 @@ public class StartQuizHandler
             Questions = group.Questions.Select(q => new QuestionDto
             {
                 Id = q.Id,
-                Text = q.Text,
+                Text = q.Text.Value,
                 Options = q.Options.Select(o => new QuestionOptionDto
                 {
                     Id = o.Id,
