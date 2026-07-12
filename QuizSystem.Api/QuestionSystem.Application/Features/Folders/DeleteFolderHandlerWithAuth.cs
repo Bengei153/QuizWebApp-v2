@@ -41,7 +41,7 @@ public class DeleteFolderHandlerWithAuth
             throw new ForbiddenAccessException("User authentication failed");
 
         // Get the resource
-        var folder = await _folderRepository.GetByIdAsync(command.GroupId, command.FolderId);
+        var folder = await _folderRepository.GetByIdAsync(command.FolderId, command.GroupId);
         if (folder == null)
             throw new InvalidOperationException("Folder not found in this group");
 
