@@ -43,6 +43,8 @@ namespace QuizSystem.Api.QuestionSystem.Infrastructure.Repositories
         public async Task<IEnumerable<QuestionGroup>> GetAllByOrganisationAsync(string organisationId)
         {
             return await _context.QuestionGroups
+                .Include(qg => qg.Folders)
+                .ThenInclude(f => f.Questions)
                 .Where(qg => qg.OrganisationId == organisationId && !qg.IsDeleted)
                 .ToListAsync();
         }
