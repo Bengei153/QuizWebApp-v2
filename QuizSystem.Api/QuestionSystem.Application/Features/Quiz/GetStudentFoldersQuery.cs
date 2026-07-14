@@ -3,6 +3,6 @@ using QuizSystem.Api.QuestionSystem.Application.Dtos;
 
 namespace QuizSystem.Api.QuestionSystem.Application.Features.Quiz;
 
-public class GetStudentFoldersQuery : IRequest<StudentFolderDto>
+public class GetStudentFoldersQuery : IRequest<List<StudentFolderDto>>
 {
 }
