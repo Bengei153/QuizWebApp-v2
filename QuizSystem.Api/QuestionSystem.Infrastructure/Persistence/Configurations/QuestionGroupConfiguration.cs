@@ -28,5 +28,9 @@ public class QuestionGroupConfiguration : IEntityTypeConfiguration<QuestionGroup
         builder.HasIndex(qg => new { qg.OrganisationId, qg.Name })
             .IsUnique()
             .HasDatabaseName("idx_questiongroups_organisationid_name");
+
+        // Soft-deleted groups should never surface in normal queries — same
+        // filter already applied to Question, Folder, and QuestionOption.
+        builder.HasQueryFilter(qg => !qg.IsDeleted);
     }
 }

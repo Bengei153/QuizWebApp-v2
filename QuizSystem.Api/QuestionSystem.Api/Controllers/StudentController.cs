@@ -67,4 +67,22 @@ public class StudentController : ControllerBase
             return StatusCode(500, new { message = "An unexpected error occurred." });
         }
     }
+
+    [HttpGet("folders")]
+    public async Task<IActionResult> GetAvailableFolders()
+    {
+        try
+        {
+            var folders = await _mediator.Send(new GetStudentFoldersQuery());
+            return Ok(folders);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An unexpected error occurred." });
+        }
+    }
 }

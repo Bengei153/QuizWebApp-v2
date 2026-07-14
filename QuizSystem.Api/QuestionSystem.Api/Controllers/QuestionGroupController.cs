@@ -44,13 +44,14 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
         {
             try
             {
+                var userId = _currentUserService.UserId;
                 var orgId = _currentUserService.OrganisationId;
-                if (string.IsNullOrWhiteSpace(orgId))
+                if (string.IsNullOrWhiteSpace(userId))
                     return Unauthorized(new { message = "User identification failed" });
 
                 var userContext = new CurrentUserContext
                 {
-                    UserId = _currentUserService.UserId,
+                    UserId = userId,
                     Role = _currentUserService.UserRole,
                     OrganisationId = orgId
                 };
