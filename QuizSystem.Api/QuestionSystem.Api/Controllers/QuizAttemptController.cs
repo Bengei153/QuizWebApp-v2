@@ -19,11 +19,11 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
         }
 
         [HttpPost("{id}/start")]
-        public async Task<IActionResult> StartQuiz(Guid id)
+        public async Task<IActionResult> StartQuiz(Guid id, [FromQuery] Guid groupId)
         {
             try
             {
-                var attemptId = await _mediator.Send(new StartQuizCommand(id, Guid.Empty));
+                var attemptId = await _mediator.Send(new StartQuizCommand(id, groupId));
                 return Ok(new { attemptId });
             }
             catch (UnauthorizedAccessException)
