@@ -32,6 +32,7 @@ public class StudentController : ControllerBase
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex.ToString());
             return StatusCode(500, new { message = "An unexpected error occurred." });
         }
     }
@@ -50,6 +51,7 @@ public class StudentController : ControllerBase
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex.ToString());
             return StatusCode(500, new { message = "An unexpected error occurred." });
         }
     }
@@ -64,6 +66,7 @@ public class StudentController : ControllerBase
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex.ToString());
             return StatusCode(500, new { message = "An unexpected error occurred." });
         }
     }
@@ -82,6 +85,7 @@ public class StudentController : ControllerBase
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex.ToString());
             return StatusCode(500, new { message = "An unexpected error occurred." });
         }
     }
