@@ -23,8 +23,8 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
         {
             try
             {
-                var attemptId = await _mediator.Send(new StartQuizCommand(id, groupId));
-                return Ok(new { attemptId });
+                var result = await _mediator.Send(new StartQuizCommand(id, groupId));
+                return Ok(result);
             }
             catch (UnauthorizedAccessException)
             {

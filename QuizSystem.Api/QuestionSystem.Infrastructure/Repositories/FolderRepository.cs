@@ -18,6 +18,7 @@ public sealed class FolderRepository : IFolderRepository
     public async Task<Folder?> GetByIdAsync(Guid folderId, Guid groupId)
         => await _context.Folders
             .Include(f => f.Questions)
+            .ThenInclude(q => q.Options)
             .FirstOrDefaultAsync(f =>
                 f.Id == folderId &&
                 f.QuestionGroupId == groupId &&
