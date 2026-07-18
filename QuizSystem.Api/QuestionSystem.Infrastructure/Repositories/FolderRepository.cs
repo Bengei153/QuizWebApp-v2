@@ -65,7 +65,11 @@ public sealed class FolderRepository : IFolderRepository
 
     public async Task<List<Folder>> GetByIdsAsync(List<Guid> ids)
     {
-        return await _context.Folders.Where(f => ids.Contains(f.Id)).ToListAsync();
+        return await _context.Folders
+            .Include(f => f.Questions)
+            .ThenInclude(q => q.Options)
+            .Where(f => ids.Contains(f.Id))
+            .ToListAsync();
     }
 }
 

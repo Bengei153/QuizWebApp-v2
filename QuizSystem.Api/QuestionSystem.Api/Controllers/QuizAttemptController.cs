@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QuizSystem.Api.QuestionSystem.Application;
 using QuizSystem.Api.QuestionSystem.Application.Features.Quiz;
 
 namespace QuizSystem.Api.QuestionSystem.Api.Controllers
@@ -42,12 +43,12 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
         }
 
         [HttpPost("{id}/submit")]
-        public async Task<IActionResult> Submit(Guid id)
+        public async Task<IActionResult> Submit(Guid id, [FromBody] SubmitQuizRequestDto request)
         {
             try
             {
-                var score = await _mediator.Send(new SubmitQuizCommand(id));
-                return Ok(new { score });
+                var result = await _mediator.Send(new SubmitQuizCommand(id, request.Answers));
+                return Ok(result);
             }
             catch (UnauthorizedAccessException)
             {
@@ -59,8 +60,8 @@ namespace QuizSystem.Api.QuestionSystem.Api.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An unexpected error occurred." });
+                Console.WriteLine(ex.ToString());
+                return StatusCode(500, new { message = "An unexpected error occurred." });
             }
         }
 
