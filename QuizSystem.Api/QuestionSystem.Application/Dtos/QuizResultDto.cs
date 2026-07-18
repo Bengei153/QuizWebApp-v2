@@ -1,14 +1,14 @@
-﻿namespace QuizSystem.Api.QuestionSystem.Application;
+﻿namespace QuizSystem.Api.QuestionSystem.Application.Dtos;
 
 public class QuizResultDto
 {
     public int Score { get; set; }
     public int EarnedPoints { get; set; }
     public int TotalPoints { get; set; }
-    public List<QuestionResultDto> Results { get; set; } = new();
+    public List<GradedQuestionDto> Results { get; set; } = new();
 }
 
-public class QuestionResultDto
+public class GradedQuestionDto
 {
     public Guid Id { get; set; }
     public string Text { get; set; } = "";

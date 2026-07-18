@@ -21,3 +21,13 @@ public class QuestionResultDto
     public string? SelectedAnswer { get; set; }
     public string? CorrectAnswer { get; set; }
 }
+
+
+/*public class QuestionResultDto
+{
+    public Guid Id { get; set; }
+    public string Text { get; set; } = "";
+    public List<OptionResultDto> Options { get; set; } = new();
+    public List<Guid> UserSelected { get; set; } = new();
+    public List<Guid> CorrectOptions { get; set; } = new();
+}*/

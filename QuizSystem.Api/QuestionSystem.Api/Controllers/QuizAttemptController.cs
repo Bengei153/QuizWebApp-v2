@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizSystem.Api.QuestionSystem.Application;
+using QuizSystem.Api.QuestionSystem.Application.Dtos;
 using QuizSystem.Api.QuestionSystem.Application.Features.Quiz;
 
 namespace QuizSystem.Api.QuestionSystem.Api.Controllers

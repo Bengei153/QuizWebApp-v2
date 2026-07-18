@@ -50,7 +50,7 @@ public class SubmitQuizHandler : IRequestHandler<SubmitQuizCommand, QuizResultDt
         if (folder == null)
             throw new InvalidOperationException("Quiz folder no longer exists.");
 
-        var results = new List<QuestionResultDto>();
+        var results = new List<GradedQuestionDto>();
         var earnedPoints = 0;
         var questions = folder.Questions.Where(q => !q.IsDeleted).ToList();
         var totalPoints = questions.Count;
@@ -82,7 +82,7 @@ public class SubmitQuizHandler : IRequestHandler<SubmitQuizCommand, QuizResultDt
                 IsCorrect = isCorrect
             });
 
-            results.Add(new QuestionResultDto
+            results.Add(new GradedQuestionDto
             {
                 Id = question.Id,
                 Text = question.Text.Value,
