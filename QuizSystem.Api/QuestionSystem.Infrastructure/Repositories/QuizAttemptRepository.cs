@@ -47,7 +47,6 @@ public class QuizAttemptRepository : IQuizAttemptRepository
 
     public async Task UpdateAsync(QuizAttempt attempt)
     {
-        _context.QuizAttempts.Update(attempt);
         await _unitOfWork.SaveChangesAsync();
     }
 
