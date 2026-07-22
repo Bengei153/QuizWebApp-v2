@@ -58,4 +58,9 @@ public class QuizAttemptRepository : IQuizAttemptRepository
                                     .OrderByDescending(a => a.StartedAt)
                                     .ToListAsync();
     }
+
+    public async Task AddAnswersAsync(List<AttemptAnswer> answers)
+    {
+        await _context.AttemptAnswers.AddRangeAsync(answers);
+    }
 }

@@ -55,6 +55,8 @@ public class SubmitQuizHandler : IRequestHandler<SubmitQuizCommand, QuizResultDt
         var questions = folder.Questions.Where(q => !q.IsDeleted).ToList();
         var totalPoints = questions.Count;
 
+        var newAnswers = new List<Domain.Entities.AttemptAnswer>();
+
         foreach (var question in questions)
         {
             var correctOptionIds = question.Options.Where(o => o.isCorrect).Select(o => o.Id).ToList();
@@ -73,7 +75,7 @@ public class SubmitQuizHandler : IRequestHandler<SubmitQuizCommand, QuizResultDt
             if (isCorrect)
                 earnedPoints++;
 
-            attempt.Answers.Add(new Domain.Entities.AttemptAnswer
+            newAnswers.Add(new Domain.Entities.AttemptAnswer
             {
                 Id = Guid.NewGuid(),
                 QuizAttemptId = attempt.Id,
@@ -102,6 +104,7 @@ public class SubmitQuizHandler : IRequestHandler<SubmitQuizCommand, QuizResultDt
         attempt.SubmittedAt = DateTime.UtcNow;
         attempt.isCompleted = true;
 
+        await _attemptRepository.AddAnswersAsync(newAnswers);
         await _attemptRepository.UpdateAsync(attempt);
         await _unitOfWork.SaveChangesAsync();
 

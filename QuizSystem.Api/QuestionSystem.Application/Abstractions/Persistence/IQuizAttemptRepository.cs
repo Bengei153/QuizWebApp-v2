@@ -11,5 +11,6 @@ public interface IQuizAttemptRepository
     Task<QuizAttempt?> GetWithAnswersAsync(Guid attemptId);
     Task UpdateAsync(QuizAttempt attempt);
     Task<List<QuizAttempt>> GetByUserWithAnswersAsync(Guid userId);
+    Task AddAnswersAsync(List<AttemptAnswer> answers);
 
 }
